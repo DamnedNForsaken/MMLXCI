@@ -3,7 +3,7 @@
 void setBuildStatus(String message, String state) {
   step([
       $class: "GitHubCommitStatusSetter",
-      reposSource: [$class: "ManuallyEnteredRepositorySource", url: "https://github.com/DamnedNForsaken/testjenkins"],
+      reposSource: [$class: "ManuallyEnteredRepositorySource", url: "https://github.com/DamnedNForsaken/MMLXCI"],
       contextSource: [$class: "ManuallyEnteredCommitContextSource", context: "ci/jenkins/build-status"],
       errorHandlers: [[$class: "ChangingBuildStatusErrorHandler", result: "UNSTABLE"]],
       statusResultSource: [ $class: "ConditionalStatusResultSource", results: [[$class: "AnyBuildResult", message: message, state: state]] ]
@@ -36,12 +36,12 @@ pipeline {
     post {
         failure {
             // The build failed
-            setBuildStatus("Build Failed", "SUCCESS");
+            setBuildStatus("Build Failed", "FAILURE");
             echo "##### ${JOB_BASE_NAME}, Build ${BUILD_DISPLAY_NAME} was not successful #####"
         }//end post failure
         success {
             // The build was successful
-            setBuildStatus("Build Failed", "FAILURE");
+            setBuildStatus("Build Success", "SUCCESS");
             echo "##### ${JOB_BASE_NAME}, Build ${BUILD_DISPLAY_NAME} was successful #####"
         }//end post success
         always {
