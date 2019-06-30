@@ -1,2 +1,2 @@
 # MMLXCI
-Continuous  integration for the MMLX Project
+Continuous Integration for the MMLX Project
