@@ -1,3 +1,5 @@
+#!/usr/bin/env groovy
+
 void setBuildStatus(String message, String state) {
   step([
       $class: "GitHubCommitStatusSetter",
@@ -10,10 +12,22 @@ void setBuildStatus(String message, String state) {
 
 pipeline {
     agent { label 'ubuntu18slave' }
+    options { 
+        ansiColor('xterm')
+        timeout(time: 24, unit: 'HOURS')
+    }
+    parameters{
+	//switch this to deployment key TODO
+        string(name: 'mmlxRepoGitUrl', defaultValue: 'https://github.com/DamnedNForsaken/MMLX', description: 'The base repo')
+    }
     stages {
         stage('build') {
             steps {
-                  sh 'java -version'
+                println("Welcome - You are in the parent container")
+                sh 'java -version'
+		//dir("/home/ue4/") {
+                  //  git credentialsId: 'GH_AUTOMATION_KEY', url: "${mmlxRepoGitUrl}", branch: "${GIT_COMMIT}"
+                //}
             }//end build steps
         }//end stage build
 	stage('last') {
