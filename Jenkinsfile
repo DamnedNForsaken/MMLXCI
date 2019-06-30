@@ -12,10 +12,6 @@ void setBuildStatus(String message, String state) {
 
 pipeline {
     agent { label 'ubuntu18slave' }
-    options { 
-        ansiColor('xterm')
-        timeout(time: 24, unit: 'HOURS')
-    }
     parameters{
 	//switch this to deployment key TODO
         string(name: 'mmlxRepoGitUrl', defaultValue: 'https://github.com/DamnedNForsaken/MMLX', description: 'The base repo')
